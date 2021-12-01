@@ -2,7 +2,6 @@
 
 :- use_module('/Users/danieljurjo/jurjo/advent/advent_of_code_2021/utils/parse_file.pl', [extract_data/3]).
 
-%% :- use_module(parse_file, [extract_data/3]).
 :- use_module(library(stream_utils), [
     file_to_string/2
 ]).
