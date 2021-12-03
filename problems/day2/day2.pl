@@ -1,6 +1,8 @@
 :- module(day2, [main_1/2, main_2/2], _).
 
-:- use_module(library(stream_utils), [get_line/2]). 
+:- use_module(library(stream_utils), [get_line/2]).
+:- use_module(library(streams), [open/3]).
+
 %%%% Less time consumption
 :- use_module('../../utils/parse_file.pl', [separate_row/5]).
 
@@ -13,7 +15,7 @@ main_1(File, Solution) :-
 %%% Part 2
 main_2(File, Solution) :-
     open(File, read, Stream),
-    solve_puzzle2(Stream, (0, 0, 0), (Hor, Depth, Aim)),
+    solve_puzzle2(Stream, (0, 0, 0), (Hor, Depth, _Aim)),
     Solution is Hor*Depth.
 
 
@@ -28,7 +30,6 @@ solve_puzzle1(Stream, Position, SolPosition) :-
     solve_puzzle1(Stream,TempPosition, SolPosition).
 solve_puzzle1(_, Position, Position).
 
-
 move_submarine1(CurrHor, Depth, '$forward', Value, NewHor, Depth) :-
     !, NewHor is CurrHor + Value.
 move_submarine1(Hor, CurrDepth, '$down', Value, Hor, NewDepth) :-
@@ -37,7 +38,6 @@ move_submarine1(Hor, CurrDepth, '$up', Value, Hor, NewDepth) :-
     !, NewDepth is CurrDepth - Value.
 %%% End -Auxiliar predicates to part 1
 
- 
 %%% Begin -Auxiliar predicates to part 2
 solve_puzzle2(Stream, Position, SolPosition) :-
     get_line(Stream, Line),
@@ -49,7 +49,6 @@ solve_puzzle2(Stream, Position, SolPosition) :-
     solve_puzzle2(Stream,TempPosition, SolPosition).
 solve_puzzle2(_, Position, Position).
 
-
 move_submarine2(Hor, Depth,Aim, '$forward', Value, NewHor, NewDepth, Aim) :-
     !,
     NewHor is Hor + Value,
@@ -59,7 +58,6 @@ move_submarine2(Hor, Depth, Aim, '$down', Value, Hor, Depth, NewAim) :-
 move_submarine2(Hor, Depth, Aim, '$up', Value, Hor, Depth, NewAim) :-
     !, NewAim is Aim - Value.
 %%% End -Auxiliar predicates to part 2
-
 
 %%% Begin -Auxiliar predicates both parts
 
